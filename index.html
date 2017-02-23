@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>OMG</title>
+  </head>
+  <body>
+    
+    <div class="group" id="followers_count">
+      <div class="value" id="followers_count_label">-</div> 
+      <div class="title">Followers</div>
+    </div>
+    
+    <div class="group" id="views_overall">
+      <div class="value" id="views_overall_label">-</div>
+      <div class="title">Views</div>
+    </div>
+    
+    <div class="group" id="views_live">
+      <div class="value" id="views_live_label">-</div>
+      <div class="title">Viewers</div>
+    </div>
+    
+    <script type="text/javascript">
+    var getUrlVars = function() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+    
+    var update = function() {
+      var projectID = getUrlVars().project_id
+      fetch('https://www.liveedu.tv/api/v2/projects/' + projectID + '/livestream/', {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(function(response) {
+        if (response.status >= 200 && response.status < 300) {
+          return response.json()
+        }
+        throw new Error(response.statusText)
+      })
+      .then(function(json) {
+        document.getElementById("followers_count_label").innerHTML = json.user.count_followers
+        document.getElementById("views_overall_label").innerHTML = json.viewsoverall
+        document.getElementById("views_live_label").innerHTML = json.viewers_live
+        
+        setTimeout(update, 1000 * 6)
+      })
+    }
+    update()
+    </script>
+    
+  </body>
+</html>
