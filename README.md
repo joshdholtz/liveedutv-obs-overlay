@@ -5,6 +5,8 @@ Example URL: http://www.joshholtz.com/liveedutv-obs-overlay/index.html?project_i
 
 ## Installation
 
+![](obs_screenshot.png)
+
 ### URL in OBS
 ```
 http://www.joshholtz.com/liveedutv-obs-overlay/index.html?project_id=the_project_id
