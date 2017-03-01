@@ -45,7 +45,7 @@
         if (response.status >= 200 && response.status < 300) {
           return response.json()
         }
-        setTimeout(update, 1000 * 30)
+        setTimeout(update, 1000 * 60 * 2)
         throw new Error(response.statusText)
       })
       .then(function(json) {
@@ -53,7 +53,7 @@
         document.getElementById("views_overall_label").innerHTML = json.viewsoverall
         document.getElementById("views_live_label").innerHTML = json.viewers_live
         
-        setTimeout(update, 1000 * 30)
+        setTimeout(update, 1000 * 60 * 2)
       })
     }
     update()
